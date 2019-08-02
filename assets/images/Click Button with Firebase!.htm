@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- saved from url=(0139)file:///Users/pintor/Desktop/GIT/RUTJC201905FSF2/07-week07/2-day/10-clickbutton-complete/Unsolved/instructor-do-clickbutton-nocomments.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Click Button with Firebase!</title>
+</head>
+<body>
+  <!-- -->
+  <h1>Ouch! You've clicked me
+    <span id="click-value"></span> times!</h1>
+
+  <!-- -->
+  <button id="click-button">Click Me!!!!</button>
+
+  <!-- -->
+  <script src="./Click Button with Firebase!_files/jquery.min.js"></script>
+
+  <!--  -->
+  <script src="./Click Button with Firebase!_files/firebase-app.js"></script>
+
+  <!-- -->
+  <script src="./Click Button with Firebase!_files/firebase-database.js"></script>
+
+  <!-- ================================================================================== -->
+  <script>
+
+    var config = {
+      apiKey: "AIzaSyBPMz8DLtVjmeCxSo8G0wJLribAUY4UZ3c",
+      authDomain: "week7-fb.firebaseapp.com",
+      databaseURL: "https://week7-fb.firebaseio.com/",
+      storageBucket: "week7-fb.appspot.com"
+    };
+
+    firebase.initializeApp(config);
+
+    // VARIABLES
+    // --------------------------------------------------------------------------------
+
+    var database = firebase.database();
+    var clickCounter = 0;
+
+    // FUNCTIONS + EVENTS
+    // --------------------------------------------------------------------------------
+
+    $("#click-button").on("click", function() {
+      clickCounter++;
+
+      database.ref().set({
+        clickCount: clickCounter
+      });
+    });
+
+    // MAIN PROCESS + INITIAL CODE
+    // --------------------------------------------------------------------------------
+
+    database.ref().on("value", function(snapshot) {
+      console.log(snapshot.val());
+
+      clickCounter = snapshot.val().clickCount;
+
+      $("#click-value").text(snapshot.val().clickCount);
+    }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+  </script>
+
+
+
+
+</body></html>

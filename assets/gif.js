@@ -1,13 +1,16 @@
 $(document).ready(function(){
-    var starters = [ "Charmander", "Squirtle", "Pikachu", "Bulbasaur"];
+
+    var starters = [ "Bulbasaur", "Squirtle", "Charmander", "Pikachu"];
     
     for(let i=0; i<starters.length; i++)
     {
-        
-        $("#Btn-section").append("<button>" + starters[i] + "</button>")
-        $("button").attr("data-SSB", starters[i])
-        $("button").addClass("playable")
+        var BTN = $("<button>");
+        BTN.attr("data-SSB", starters[i])
+        BTN.addClass("playable")
+        BTN.text(starters[i])
+        $("#Btn-section").append(BTN)
     }
+    
 
     function smashButton(){
         $("#gif-section").empty()
@@ -18,8 +21,7 @@ $(document).ready(function(){
         button.attr("data-SSB", pokeChar);
         button.text(pokeChar);
         $("#Btn-section").append(button);
-        
-    }
+        }
     
     $("#add-Char").on("click", function(event){
         event.preventDefault();
@@ -40,21 +42,38 @@ $(document).ready(function(){
 
         for(let j=0;j<results.length;j++)
         {
-            var smashDiv = $("<div>");
+            var pokeDiv = $("<div>");
             var rating = $("<p>").text("Rating: " + results[j].rating);
             var charImage = $("<img>")
+            charImage.addClass("gif")
             charImage.attr("src", results[j].images.fixed_height.url);
-            smashDiv.append(rating);
-            smashDiv.append(charImage);
-            $("#gif-section").prepend(smashDiv);
+            charImage.attr("data-still", results[j].images.fixed_height_still.url);
+            charImage.attr("data-animate", results[j].images.fixed_height.url);
+            charImage.attr("data-state", "still");
+            pokeDiv.append(rating);
+            pokeDiv.append(charImage);
+            $("#gif-section").prepend(pokeDiv);
         }
+
+        $(".gif").on("click", function() {
+           var state = $(this).attr("data-state");
+            if (state === "still") {
+              $(this).attr("src", $(this).attr("data-animate"));
+              $(this).attr("data-state", "animate");
+            } 
+            else {
+              $(this).attr("src", $(this).attr("data-still"));
+              $(this).attr("data-state", "still");
+            }
+          });
+  
 
     });
         };
 
         $(document).on("click", ".playable", display);
 
-        smashButton();
+        
 
     })
 

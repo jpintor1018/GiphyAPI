@@ -4,28 +4,35 @@ body{
     background-size: cover;
     background-attachment: fixed;
 }
+
 #Btn-section{
   margin: 0 auto;
- 
-}
+ }
+
 .jumbotron{
     background-image:url(../assets/images/Pikachu.jpg);
     background-size: cover;
     background-size:450px;
-    background-attachment: fixed;
+    
     background-position-y:-85px; 
-    background-position-x: 410px;
+    background-position-x: 230px;
 }
+
 .display-4{
+    
     margin: 0 auto;
     text-align: center;
 }
+
 .playable{
     margin: 5px;
 }
-label,p{
+
+h2{
     color: salmon;
+    background-color: bisque;
 }
+
 #gif-section{
     width:100%;
     float: left;
